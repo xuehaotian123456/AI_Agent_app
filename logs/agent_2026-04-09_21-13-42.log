@@ -1,0 +1,136 @@
+2026-04-09 21:13:43,742 - agent - ERROR -vector_store.py:91 - [加载知识库] 文件加载异常：D:\desktop\大模型agent实战项目\data\扫地机器人100问.pdf,`pypdf` package not found, please install it with `pip install pypdf`
+Traceback (most recent call last):
+  File "D:\anaconda_1\envs\rag_env\Lib\site-packages\langchain_community\document_loaders\parsers\pdf.py", line 359, in lazy_parse
+    import pypdf
+ModuleNotFoundError: No module named 'pypdf'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\desktop\大模型agent实战项目\rag\vector_store.py", line 77, in load_documents
+    documents :list[Document] = get_file_documents(path)
+                                ~~~~~~~~~~~~~~~~~~^^^^^^
+  File "D:\desktop\大模型agent实战项目\rag\vector_store.py", line 59, in get_file_documents
+    return pdf_loader(read_path)
+  File "D:\desktop\大模型agent实战项目\utils\file_handler.py", line 46, in pdf_loader
+    return PyPDFLoader(filepath,password).load()
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "D:\anaconda_1\envs\rag_env\Lib\site-packages\langchain_core\document_loaders\base.py", line 43, in load
+    return list(self.lazy_load())
+  File "D:\anaconda_1\envs\rag_env\Lib\site-packages\langchain_community\document_loaders\pdf.py", line 305, in lazy_load
+    yield from self.parser.lazy_parse(blob)
+  File "D:\anaconda_1\envs\rag_env\Lib\site-packages\langchain_community\document_loaders\parsers\pdf.py", line 361, in lazy_parse
+    raise ImportError(
+        "`pypdf` package not found, please install it with `pip install pypdf`"
+    )
+ImportError: `pypdf` package not found, please install it with `pip install pypdf`
+2026-04-09 21:13:43,834 - agent - ERROR -vector_store.py:91 - [加载知识库] 文件加载异常：D:\desktop\大模型agent实战项目\data\扫地机器人100问2.txt,Error loading D:\desktop\大模型agent实战项目\data\扫地机器人100问2.txt
+Traceback (most recent call last):
+  File "D:\anaconda_1\envs\rag_env\Lib\site-packages\langchain_community\document_loaders\text.py", line 43, in lazy_load
+    text = f.read()
+UnicodeDecodeError: 'gbk' codec can't decode byte 0xab in position 4: illegal multibyte sequence
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\desktop\大模型agent实战项目\rag\vector_store.py", line 77, in load_documents
+    documents :list[Document] = get_file_documents(path)
+                                ~~~~~~~~~~~~~~~~~~^^^^^^
+  File "D:\desktop\大模型agent实战项目\rag\vector_store.py", line 61, in get_file_documents
+    return txt_loader(read_path)
+  File "D:\desktop\大模型agent实战项目\utils\file_handler.py", line 49, in txt_loader
+    return TextLoader(filepath).load()
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "D:\anaconda_1\envs\rag_env\Lib\site-packages\langchain_core\document_loaders\base.py", line 43, in load
+    return list(self.lazy_load())
+  File "D:\anaconda_1\envs\rag_env\Lib\site-packages\langchain_community\document_loaders\text.py", line 56, in lazy_load
+    raise RuntimeError(f"Error loading {self.file_path}") from e
+RuntimeError: Error loading D:\desktop\大模型agent实战项目\data\扫地机器人100问2.txt
+2026-04-09 21:13:43,839 - agent - ERROR -vector_store.py:91 - [加载知识库] 文件加载异常：D:\desktop\大模型agent实战项目\data\扫拖一体机器人100问.txt,Error loading D:\desktop\大模型agent实战项目\data\扫拖一体机器人100问.txt
+Traceback (most recent call last):
+  File "D:\anaconda_1\envs\rag_env\Lib\site-packages\langchain_community\document_loaders\text.py", line 43, in lazy_load
+    text = f.read()
+UnicodeDecodeError: 'gbk' codec can't decode byte 0xab in position 4: illegal multibyte sequence
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\desktop\大模型agent实战项目\rag\vector_store.py", line 77, in load_documents
+    documents :list[Document] = get_file_documents(path)
+                                ~~~~~~~~~~~~~~~~~~^^^^^^
+  File "D:\desktop\大模型agent实战项目\rag\vector_store.py", line 61, in get_file_documents
+    return txt_loader(read_path)
+  File "D:\desktop\大模型agent实战项目\utils\file_handler.py", line 49, in txt_loader
+    return TextLoader(filepath).load()
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "D:\anaconda_1\envs\rag_env\Lib\site-packages\langchain_core\document_loaders\base.py", line 43, in load
+    return list(self.lazy_load())
+  File "D:\anaconda_1\envs\rag_env\Lib\site-packages\langchain_community\document_loaders\text.py", line 56, in lazy_load
+    raise RuntimeError(f"Error loading {self.file_path}") from e
+RuntimeError: Error loading D:\desktop\大模型agent实战项目\data\扫拖一体机器人100问.txt
+2026-04-09 21:13:43,842 - agent - ERROR -vector_store.py:91 - [加载知识库] 文件加载异常：D:\desktop\大模型agent实战项目\data\故障排除.txt,Error loading D:\desktop\大模型agent实战项目\data\故障排除.txt
+Traceback (most recent call last):
+  File "D:\anaconda_1\envs\rag_env\Lib\site-packages\langchain_community\document_loaders\text.py", line 43, in lazy_load
+    text = f.read()
+UnicodeDecodeError: 'gbk' codec can't decode byte 0xab in position 2: illegal multibyte sequence
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\desktop\大模型agent实战项目\rag\vector_store.py", line 77, in load_documents
+    documents :list[Document] = get_file_documents(path)
+                                ~~~~~~~~~~~~~~~~~~^^^^^^
+  File "D:\desktop\大模型agent实战项目\rag\vector_store.py", line 61, in get_file_documents
+    return txt_loader(read_path)
+  File "D:\desktop\大模型agent实战项目\utils\file_handler.py", line 49, in txt_loader
+    return TextLoader(filepath).load()
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "D:\anaconda_1\envs\rag_env\Lib\site-packages\langchain_core\document_loaders\base.py", line 43, in load
+    return list(self.lazy_load())
+  File "D:\anaconda_1\envs\rag_env\Lib\site-packages\langchain_community\document_loaders\text.py", line 56, in lazy_load
+    raise RuntimeError(f"Error loading {self.file_path}") from e
+RuntimeError: Error loading D:\desktop\大模型agent实战项目\data\故障排除.txt
+2026-04-09 21:13:43,844 - agent - ERROR -vector_store.py:91 - [加载知识库] 文件加载异常：D:\desktop\大模型agent实战项目\data\维护保养.txt,Error loading D:\desktop\大模型agent实战项目\data\维护保养.txt
+Traceback (most recent call last):
+  File "D:\anaconda_1\envs\rag_env\Lib\site-packages\langchain_community\document_loaders\text.py", line 43, in lazy_load
+    text = f.read()
+UnicodeDecodeError: 'gbk' codec can't decode byte 0xab in position 4: illegal multibyte sequence
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\desktop\大模型agent实战项目\rag\vector_store.py", line 77, in load_documents
+    documents :list[Document] = get_file_documents(path)
+                                ~~~~~~~~~~~~~~~~~~^^^^^^
+  File "D:\desktop\大模型agent实战项目\rag\vector_store.py", line 61, in get_file_documents
+    return txt_loader(read_path)
+  File "D:\desktop\大模型agent实战项目\utils\file_handler.py", line 49, in txt_loader
+    return TextLoader(filepath).load()
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "D:\anaconda_1\envs\rag_env\Lib\site-packages\langchain_core\document_loaders\base.py", line 43, in load
+    return list(self.lazy_load())
+  File "D:\anaconda_1\envs\rag_env\Lib\site-packages\langchain_community\document_loaders\text.py", line 56, in lazy_load
+    raise RuntimeError(f"Error loading {self.file_path}") from e
+RuntimeError: Error loading D:\desktop\大模型agent实战项目\data\维护保养.txt
+2026-04-09 21:13:43,847 - agent - ERROR -vector_store.py:91 - [加载知识库] 文件加载异常：D:\desktop\大模型agent实战项目\data\选购指南.txt,Error loading D:\desktop\大模型agent实战项目\data\选购指南.txt
+Traceback (most recent call last):
+  File "D:\anaconda_1\envs\rag_env\Lib\site-packages\langchain_community\document_loaders\text.py", line 43, in lazy_load
+    text = f.read()
+UnicodeDecodeError: 'gbk' codec can't decode byte 0xab in position 2: illegal multibyte sequence
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\desktop\大模型agent实战项目\rag\vector_store.py", line 77, in load_documents
+    documents :list[Document] = get_file_documents(path)
+                                ~~~~~~~~~~~~~~~~~~^^^^^^
+  File "D:\desktop\大模型agent实战项目\rag\vector_store.py", line 61, in get_file_documents
+    return txt_loader(read_path)
+  File "D:\desktop\大模型agent实战项目\utils\file_handler.py", line 49, in txt_loader
+    return TextLoader(filepath).load()
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "D:\anaconda_1\envs\rag_env\Lib\site-packages\langchain_core\document_loaders\base.py", line 43, in load
+    return list(self.lazy_load())
+  File "D:\anaconda_1\envs\rag_env\Lib\site-packages\langchain_community\document_loaders\text.py", line 56, in lazy_load
+    raise RuntimeError(f"Error loading {self.file_path}") from e
+RuntimeError: Error loading D:\desktop\大模型agent实战项目\data\选购指南.txt

@@ -1,0 +1,9 @@
+2026-04-10 11:14:36,954 - agent - INFO -middleware.py:33 - [log_before_model]即将调用模型，带有：1条信息。
+2026-04-10 11:14:36,954 - agent - DEBUG -middleware.py:35 - [log_before_model] HumanMessage |当前信息：小户型适合哪些扫地机器人？]
+2026-04-10 11:14:36,955 - agent - INFO -middleware.py:44 - [report_prompt_switch]当前提示词切换为正常模式
+2026-04-10 11:14:38,951 - agent - INFO -middleware.py:17 - [monitor_tool]工具执行开始：rag_summarize
+2026-04-10 11:14:38,951 - agent - INFO -middleware.py:18 - [monitor_tool]工具执行参数：{'query': '小户型 扫地机器人 选购建议'}
+2026-04-10 11:14:43,113 - agent - INFO -middleware.py:21 - [monitor_tool]工具执行结果：content='小户型选购扫地机器人建议选择体积小巧、转弯半径小的机型，便于在狭窄空间灵活移动；优先考虑具备智能导航和路径规划功能的产品，以提高清洁效率；电池续航满足单次清扫全屋即可，无需过长；储尘盒容量适中，便于清理；若预算允许，可选带自动回充和APP控制功能的型号。' name='rag_summarize' tool_call_id='call_8d692a0e379c401b9c201844'
+2026-04-10 11:14:43,116 - agent - INFO -middleware.py:33 - [log_before_model]即将调用模型，带有：3条信息。
+2026-04-10 11:14:43,116 - agent - DEBUG -middleware.py:35 - [log_before_model] ToolMessage |当前信息：小户型选购扫地机器人建议选择体积小巧、转弯半径小的机型，便于在狭窄空间灵活移动；优先考虑具备智能导航和路径规划功能的产品，以提高清洁效率；电池续航满足单次清扫全屋即可，无需过长；储尘盒容量适中，便于清理；若预算允许，可选带自动回充和APP控制功能的型号。]
+2026-04-10 11:14:43,117 - agent - INFO -middleware.py:44 - [report_prompt_switch]当前提示词切换为正常模式

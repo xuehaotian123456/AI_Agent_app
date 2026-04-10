@@ -1,0 +1,4 @@
+2026-04-08 21:18:40,621 - agent - INFO -logger_handler.py:51 - info
+2026-04-08 21:18:40,622 - agent - ERROR -logger_handler.py:52 - error
+2026-04-08 21:18:40,622 - agent - DEBUG -logger_handler.py:53 - debug
+2026-04-08 21:18:40,622 - agent - WARNING -logger_handler.py:54 - warning

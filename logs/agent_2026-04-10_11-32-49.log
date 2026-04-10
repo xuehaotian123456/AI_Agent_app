@@ -1,0 +1,45 @@
+2026-04-10 11:32:50,549 - agent - INFO -middleware.py:33 - [log_before_model]即将调用模型，带有：1条信息。
+2026-04-10 11:32:50,549 - agent - DEBUG -middleware.py:35 - [log_before_model] HumanMessage |当前信息：给我生成我的使用报告]
+2026-04-10 11:32:50,549 - agent - INFO -middleware.py:44 - [report_prompt_switch]当前提示词切换为正常模式
+2026-04-10 11:32:53,261 - agent - INFO -middleware.py:17 - [monitor_tool]工具执行开始：get_user_id
+2026-04-10 11:32:53,261 - agent - INFO -middleware.py:18 - [monitor_tool]工具执行参数：{}
+2026-04-10 11:32:53,262 - agent - INFO -middleware.py:21 - [monitor_tool]工具执行结果：content='1010' name='get_user_id' tool_call_id='call_2ac59f86781049718da83b80'
+2026-04-10 11:32:53,266 - agent - INFO -middleware.py:33 - [log_before_model]即将调用模型，带有：3条信息。
+2026-04-10 11:32:53,266 - agent - DEBUG -middleware.py:35 - [log_before_model] ToolMessage |当前信息：1010]
+2026-04-10 11:32:53,267 - agent - INFO -middleware.py:44 - [report_prompt_switch]当前提示词切换为正常模式
+2026-04-10 11:32:55,300 - agent - INFO -middleware.py:17 - [monitor_tool]工具执行开始：get_current_month
+2026-04-10 11:32:55,300 - agent - INFO -middleware.py:18 - [monitor_tool]工具执行参数：{}
+2026-04-10 11:32:55,301 - agent - INFO -middleware.py:21 - [monitor_tool]工具执行结果：content='2025-06' name='get_current_month' tool_call_id='call_506f4487bc5d436fa72e0d1e'
+2026-04-10 11:32:55,301 - agent - INFO -middleware.py:33 - [log_before_model]即将调用模型，带有：5条信息。
+2026-04-10 11:32:55,302 - agent - DEBUG -middleware.py:35 - [log_before_model] ToolMessage |当前信息：2025-06]
+2026-04-10 11:32:55,302 - agent - INFO -middleware.py:44 - [report_prompt_switch]当前提示词切换为正常模式
+2026-04-10 11:32:57,400 - agent - INFO -middleware.py:17 - [monitor_tool]工具执行开始：fill_context_for_report
+2026-04-10 11:32:57,400 - agent - INFO -middleware.py:18 - [monitor_tool]工具执行参数：{}
+2026-04-10 11:32:57,402 - agent - INFO -middleware.py:21 - [monitor_tool]工具执行结果：content='fill_context_for_report已调用' name='fill_context_for_report' tool_call_id='call_a04ecc6b59b247f2a25b9bb3'
+2026-04-10 11:32:57,403 - agent - INFO -middleware.py:33 - [log_before_model]即将调用模型，带有：7条信息。
+2026-04-10 11:32:57,404 - agent - DEBUG -middleware.py:35 - [log_before_model] ToolMessage |当前信息：fill_context_for_report已调用]
+2026-04-10 11:32:57,405 - agent - INFO -middleware.py:41 - [report_prompt_switch]当前提示词切换为报告模式
+2026-04-10 11:33:00,357 - agent - INFO -middleware.py:17 - [monitor_tool]工具执行开始：fetch_external_data
+2026-04-10 11:33:00,357 - agent - INFO -middleware.py:18 - [monitor_tool]工具执行参数：{'user_id': '1010', 'month': '2025-06'}
+2026-04-10 11:33:00,361 - agent - INFO -middleware.py:21 - [monitor_tool]工具执行结果：content='{"特征": "130㎡四居 | 三代同堂 | 通体砖", "效率": "覆盖率:82%\\\\n手动辅助清扫:3次/天\\\\n定时清扫使用率:60%", "耗材": "电池衰减:15%\\\\n边刷寿命:剩余45天", "对比": "大户型中操作便捷性低于同类20%"}' name='fetch_external_data' tool_call_id='call_d83aa9ec687e427fab4ea718'
+2026-04-10 11:33:00,363 - agent - INFO -middleware.py:33 - [log_before_model]即将调用模型，带有：9条信息。
+2026-04-10 11:33:00,363 - agent - DEBUG -middleware.py:35 - [log_before_model] ToolMessage |当前信息：{"特征": "130㎡四居 | 三代同堂 | 通体砖", "效率": "覆盖率:82%\\n手动辅助清扫:3次/天\\n定时清扫使用率:60%", "耗材": "电池衰减:15%\\n边刷寿命:剩余45天", "对比": "大户型中操作便捷性低于同类20%"}]
+2026-04-10 11:33:00,364 - agent - INFO -middleware.py:41 - [report_prompt_switch]当前提示词切换为报告模式
+2026-04-10 11:33:04,361 - agent - INFO -middleware.py:17 - [monitor_tool]工具执行开始：rag_summarize
+2026-04-10 11:33:04,362 - agent - INFO -middleware.py:18 - [monitor_tool]工具执行参数：{'query': '扫地机器人电池保养'}
+2026-04-10 11:33:07,236 - agent - INFO -middleware.py:21 - [monitor_tool]工具执行结果：content='扫地机器人电池保养需注意：避免长时间满电或完全放电存放，建议电量保持在40%-60%；长期不用时应每月充电一次以防电池老化；使用原装充电器，避免高温或潮湿环境充电。' name='rag_summarize' tool_call_id='call_80ed575fb8224f709e4e367c'
+2026-04-10 11:33:07,237 - agent - INFO -middleware.py:33 - [log_before_model]即将调用模型，带有：11条信息。
+2026-04-10 11:33:07,237 - agent - DEBUG -middleware.py:35 - [log_before_model] ToolMessage |当前信息：扫地机器人电池保养需注意：避免长时间满电或完全放电存放，建议电量保持在40%-60%；长期不用时应每月充电一次以防电池老化；使用原装充电器，避免高温或潮湿环境充电。]
+2026-04-10 11:33:07,238 - agent - INFO -middleware.py:41 - [report_prompt_switch]当前提示词切换为报告模式
+2026-04-10 11:33:09,598 - agent - INFO -middleware.py:17 - [monitor_tool]工具执行开始：rag_summarize
+2026-04-10 11:33:09,598 - agent - INFO -middleware.py:18 - [monitor_tool]工具执行参数：{'query': '扫地机器人边刷更换周期'}
+2026-04-10 11:33:11,671 - agent - INFO -middleware.py:21 - [monitor_tool]工具执行结果：content='边刷建议每3至6个月更换一次，具体周期视使用频率和地面状况而定。' name='rag_summarize' tool_call_id='call_9ba41ae059084104a95266e8'
+2026-04-10 11:33:11,672 - agent - INFO -middleware.py:33 - [log_before_model]即将调用模型，带有：13条信息。
+2026-04-10 11:33:11,672 - agent - DEBUG -middleware.py:35 - [log_before_model] ToolMessage |当前信息：边刷建议每3至6个月更换一次，具体周期视使用频率和地面状况而定。]
+2026-04-10 11:33:11,672 - agent - INFO -middleware.py:41 - [report_prompt_switch]当前提示词切换为报告模式
+2026-04-10 11:33:13,722 - agent - INFO -middleware.py:17 - [monitor_tool]工具执行开始：rag_summarize
+2026-04-10 11:33:13,723 - agent - INFO -middleware.py:18 - [monitor_tool]工具执行参数：{'query': '大户型扫地机器人使用效率提升'}
+2026-04-10 11:33:17,463 - agent - INFO -middleware.py:21 - [monitor_tool]工具执行结果：content='提升大户型扫地机器人使用效率的关键措施包括：合理划分清洁区域、设置虚拟墙或禁区以避免重复清扫、定期清理尘盒和滚刷以维持吸力、确保充足电量或配置自动回充功能、利用智能地图记忆功能优化路径规划，以及选择具备大尘盒、长续航和强越障能力的机型。' name='rag_summarize' tool_call_id='call_36817c85352f4cd5a2de8464'
+2026-04-10 11:33:17,465 - agent - INFO -middleware.py:33 - [log_before_model]即将调用模型，带有：15条信息。
+2026-04-10 11:33:17,466 - agent - DEBUG -middleware.py:35 - [log_before_model] ToolMessage |当前信息：提升大户型扫地机器人使用效率的关键措施包括：合理划分清洁区域、设置虚拟墙或禁区以避免重复清扫、定期清理尘盒和滚刷以维持吸力、确保充足电量或配置自动回充功能、利用智能地图记忆功能优化路径规划，以及选择具备大尘盒、长续航和强越障能力的机型。]
+2026-04-10 11:33:17,467 - agent - INFO -middleware.py:41 - [report_prompt_switch]当前提示词切换为报告模式

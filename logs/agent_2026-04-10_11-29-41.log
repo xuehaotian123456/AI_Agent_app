@@ -1,0 +1,24 @@
+2026-04-10 11:29:42,130 - agent - INFO -middleware.py:33 - [log_before_model]即将调用模型，带有：1条信息。
+2026-04-10 11:29:42,130 - agent - DEBUG -middleware.py:35 - [log_before_model] HumanMessage |当前信息：给我生成我的使用报告]
+2026-04-10 11:29:42,130 - agent - INFO -middleware.py:44 - [report_prompt_switch]当前提示词切换为正常模式
+2026-04-10 11:29:44,621 - agent - INFO -middleware.py:17 - [monitor_tool]工具执行开始：fill_context_for_report
+2026-04-10 11:29:44,621 - agent - INFO -middleware.py:18 - [monitor_tool]工具执行参数：{}
+2026-04-10 11:29:44,622 - agent - INFO -middleware.py:21 - [monitor_tool]工具执行结果：content='fill_context_for_report已调用' name='fill_context_for_report' tool_call_id='call_aaa7ac7b8b3e4cc3961c4d61'
+2026-04-10 11:29:44,624 - agent - INFO -middleware.py:33 - [log_before_model]即将调用模型，带有：3条信息。
+2026-04-10 11:29:44,624 - agent - DEBUG -middleware.py:35 - [log_before_model] ToolMessage |当前信息：fill_context_for_report已调用]
+2026-04-10 11:29:44,624 - agent - INFO -middleware.py:41 - [report_prompt_switch]当前提示词切换为报告模式
+2026-04-10 11:29:46,345 - agent - INFO -middleware.py:17 - [monitor_tool]工具执行开始：get_user_id
+2026-04-10 11:29:46,345 - agent - INFO -middleware.py:18 - [monitor_tool]工具执行参数：{}
+2026-04-10 11:29:46,346 - agent - INFO -middleware.py:21 - [monitor_tool]工具执行结果：content='1007' name='get_user_id' tool_call_id='call_1dab76096393478f9c794365'
+2026-04-10 11:29:46,348 - agent - INFO -middleware.py:33 - [log_before_model]即将调用模型，带有：5条信息。
+2026-04-10 11:29:46,348 - agent - DEBUG -middleware.py:35 - [log_before_model] ToolMessage |当前信息：1007]
+2026-04-10 11:29:46,348 - agent - INFO -middleware.py:41 - [report_prompt_switch]当前提示词切换为报告模式
+2026-04-10 11:29:47,868 - agent - INFO -middleware.py:17 - [monitor_tool]工具执行开始：get_current_month
+2026-04-10 11:29:47,868 - agent - INFO -middleware.py:18 - [monitor_tool]工具执行参数：{}
+2026-04-10 11:29:47,870 - agent - INFO -middleware.py:21 - [monitor_tool]工具执行结果：content='2025-05' name='get_current_month' tool_call_id='call_5490c3ec8a4b46a3a4fb70de'
+2026-04-10 11:29:47,871 - agent - INFO -middleware.py:33 - [log_before_model]即将调用模型，带有：7条信息。
+2026-04-10 11:29:47,871 - agent - DEBUG -middleware.py:35 - [log_before_model] ToolMessage |当前信息：2025-05]
+2026-04-10 11:29:47,871 - agent - INFO -middleware.py:41 - [report_prompt_switch]当前提示词切换为报告模式
+2026-04-10 11:29:50,202 - agent - INFO -middleware.py:17 - [monitor_tool]工具执行开始：fetch_external_data
+2026-04-10 11:29:50,202 - agent - INFO -middleware.py:18 - [monitor_tool]工具执行参数：{'user_id': '1007', 'month': '2025-05'}
+2026-04-10 11:29:50,203 - agent - ERROR -middleware.py:26 - [monitor_tool]| 工具执行异常：fetch_external_data:'NoneType' object is not subscriptable

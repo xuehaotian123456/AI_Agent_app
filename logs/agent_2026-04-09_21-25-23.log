@@ -1,0 +1,6 @@
+2026-04-09 21:25:28,737 - agent - INFO -vector_store.py:89 - [加载知识库] 文件已加载：D:\desktop\大模型agent实战项目\data\扫地机器人100问.pdf
+2026-04-09 21:25:31,708 - agent - INFO -vector_store.py:89 - [加载知识库] 文件已加载：D:\desktop\大模型agent实战项目\data\扫地机器人100问2.txt
+2026-04-09 21:25:35,936 - agent - INFO -vector_store.py:89 - [加载知识库] 文件已加载：D:\desktop\大模型agent实战项目\data\扫拖一体机器人100问.txt
+2026-04-09 21:25:47,321 - agent - INFO -vector_store.py:89 - [加载知识库] 文件已加载：D:\desktop\大模型agent实战项目\data\故障排除.txt
+2026-04-09 21:25:53,246 - agent - INFO -vector_store.py:89 - [加载知识库] 文件已加载：D:\desktop\大模型agent实战项目\data\维护保养.txt
+2026-04-09 21:25:57,670 - agent - INFO -vector_store.py:89 - [加载知识库] 文件已加载：D:\desktop\大模型agent实战项目\data\选购指南.txt
