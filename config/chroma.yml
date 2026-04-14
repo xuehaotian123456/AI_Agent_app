@@ -1,5 +1,7 @@
 collection_name : agent
-persist_directory : chroma_db
+#persist_directory : chroma_db
+persist_directory : rag/chroma_db
+
 k : 3
 data_path : data
 md5_hex_store : md5.txt
@@ -9,3 +11,10 @@ chunk_size : 200
 chunk_overlap : 20
 
 separators : ["\n","\n\n",",",".","?","!","，","。"]
+
+hybrid_search:
+  enabled: true
+  top_k_retrieve: 10
+  top_k_rerank: 3
+  alpha: 0.5
+  reranker_model: "BAAI/bge-reranker-base"
