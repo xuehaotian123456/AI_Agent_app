@@ -1,2 +1,19 @@
-chat_model_name: qwen3-max
+chat_model_name: deepseek-v3.2
 embedding_model_name: text-embedding-v4
+
+# 备份模型配置（当主模型失败时使用）
+backup_chat_model_name: qwen-plus
+
+# LLM 调用重试配置
+llm_retry:
+  max_attempts: 3
+  min_wait: 2
+  max_wait: 10
+  multiplier: 1
+
+# 自我纠错配置
+self_correction:
+  enabled: true
+  max_retries: 2
+  confidence_threshold: 0.6
+  skip_first_check: false

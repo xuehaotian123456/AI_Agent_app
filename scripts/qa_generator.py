@@ -233,7 +233,7 @@ class QAGenerator:
 
         # 生成评测集
         if output_path is None:
-            output_path = get_abs_path("data/eval_dataset.json")
+            output_path = get_abs_path("../data/eval_dataset.json")
 
         return self.build_eval_dataset_from_docs(
             documents=all_documents,
@@ -275,7 +275,7 @@ if __name__ == '__main__':
 
     dataset = generator.build_eval_dataset_from_files(
         num_questions=3,
-        output_path="data/eval_dataset.json"
+        output_path="../data/eval_dataset.json"
     )
 
     print(f"\n生成了 {len(dataset)} 个问答对")

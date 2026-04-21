@@ -1,0 +1,170 @@
+[
+  {
+    "idx": 4,
+    "query": "扫拖一体机的拖地效果怎么样？",
+    "reason": "source_not_hit",
+    "expected_source": "D:\\desktop\\langgragh项目\\data\\扫地机器人100问.pdf",
+    "relevant_ids": [
+      "扫地机器人100问.pdf"
+    ],
+    "citations": [],
+    "answer_preview": "资料不足",
+    "retrieval_metadata": {
+      "method": "hybrid",
+      "docs_count": 3,
+      "elapsed_time": null
+    }
+  },
+  {
+    "idx": 9,
+    "query": "如何添加自定义语音指令？",
+    "reason": "source_not_hit",
+    "expected_source": "D:\\desktop\\langgragh项目\\data\\扫地机器人100问.pdf",
+    "relevant_ids": [
+      "扫地机器人100问.pdf"
+    ],
+    "citations": [],
+    "answer_preview": "资料不足",
+    "retrieval_metadata": {
+      "method": "hybrid",
+      "docs_count": 3,
+      "elapsed_time": null
+    }
+  },
+  {
+    "idx": 10,
+    "query": "有宠物的家庭该怎么选扫地机器人？",
+    "reason": "source_not_hit",
+    "expected_source": "D:\\desktop\\langgragh项目\\data\\扫地机器人100问.pdf",
+    "relevant_ids": [
+      "扫地机器人100问.pdf"
+    ],
+    "citations": [],
+    "answer_preview": "资料不足",
+    "retrieval_metadata": {
+      "method": "hybrid",
+      "docs_count": 3,
+      "elapsed_time": null
+    }
+  },
+  {
+    "idx": 14,
+    "query": "如何防止机器人跌落楼梯？",
+    "reason": "source_not_hit",
+    "expected_source": "D:\\desktop\\langgragh项目\\data\\扫地机器人100问.pdf",
+    "relevant_ids": [
+      "扫地机器人100问.pdf"
+    ],
+    "citations": [
+      {
+        "source": "D:\\desktop\\langgragh项目\\data\\故障排除.txt",
+        "content": "故障现象：防跌落功能失效，有坠楼风险；检测：底部防跌落传感器是否有灰尘，传感器是否损坏；修复：擦拭传感器，放在平整地面测试，损坏则联系售后更换。",
+        "relevance_score": 0.95
+      }
+    ],
+    "answer_preview": "扫地机器人防楼梯跌落的技术原理依赖于底部的防跌落传感器，当传感器被灰尘覆盖或损坏时，可能导致防跌落功能失效。",
+    "retrieval_metadata": {
+      "method": "hybrid",
+      "docs_count": 3,
+      "elapsed_time": null
+    }
+  },
+  {
+    "idx": 26,
+    "query": "为什么机器人找不到充电座？",
+    "reason": "source_not_hit",
+    "expected_source": "D:\\desktop\\langgragh项目\\data\\扫地机器人100问2.txt",
+    "relevant_ids": [
+      "扫地机器人100问2.txt"
+    ],
+    "citations": [
+      {
+        "source": "D:\\desktop\\langgragh项目\\data\\故障排除.txt",
+        "content": "故障现象：机器人找不到充电座；检测：充电座周围是否有遮挡，回充传感器是否有灰尘，充电座红外信号是否正常；修复：清理充电座周围3米内障碍物，擦拭回充传感器，重新摆放充电座。",
+        "relevance_score": 1.0
+      }
+    ],
+    "answer_preview": "根据参考资料，机器人找不到充电座的原因可能包括：充电座周围有遮挡、回充传感器有灰尘、充电座红外信号异常。修复方法为清理充电座周围3米内障碍物、擦拭回充传感器、重新摆放充电座。",
+    "retrieval_metadata": {
+      "method": "hybrid",
+      "docs_count": 3,
+      "elapsed_time": null
+    }
+  },
+  {
+    "idx": 29,
+    "query": "拖地时出水量怎么调节？",
+    "reason": "source_not_hit",
+    "expected_source": "D:\\desktop\\langgragh项目\\data\\扫拖一体机器人100问.txt",
+    "relevant_ids": [
+      "扫拖一体机器人100问.txt"
+    ],
+    "citations": [],
+    "answer_preview": "资料不足",
+    "retrieval_metadata": {
+      "method": "hybrid",
+      "docs_count": 3,
+      "elapsed_time": null
+    }
+  },
+  {
+    "idx": 30,
+    "query": "厨房重油污地面怎么拖干净？",
+    "reason": "source_not_hit",
+    "expected_source": "D:\\desktop\\langgragh项目\\data\\扫拖一体机器人100问.txt",
+    "relevant_ids": [
+      "扫拖一体机器人100问.txt"
+    ],
+    "citations": [
+      {
+        "source": "D:\\desktop\\langgragh项目\\data\\维护保养.txt",
+        "content": "厨房重油污环境：拖地后立即清理拖布、水箱，用中性洗涤剂清洗拖布，每周对水箱进行除垢，避免油污堵塞。",
+        "relevance_score": 0.95
+      }
+    ],
+    "answer_preview": "根据参考资料，扫拖一体机器人在厨房重油污环境中应拖地后立即清理拖布和水箱，使用中性洗涤剂清洗拖布，并每周对水箱进行除垢，以避免油污堵塞。",
+    "retrieval_metadata": {
+      "method": "hybrid",
+      "docs_count": 3,
+      "elapsed_time": null
+    }
+  },
+  {
+    "idx": 32,
+    "query": "为什么扫地机器人吸力变小了？",
+    "reason": "source_not_hit",
+    "expected_source": "D:\\desktop\\langgragh项目\\data\\故障排除.txt",
+    "relevant_ids": [
+      "故障排除.txt"
+    ],
+    "citations": [
+      {
+        "source": "D:\\desktop\\langgragh项目\\data\\扫地机器人100问2.txt",
+        "content": "静音模式会默认降低吸力以减少噪音，若需要大吸力，可关闭静音模式，选择“标准吸力”或“大吸力”。",
+        "relevance_score": 0.95
+      }
+    ],
+    "answer_preview": "根据参考资料，扫地机器人吸力变小可能是因为处于静音模式，该模式会默认降低吸力以减少噪音；若需要大吸力，可关闭静音模式，选择“标准吸力”或“大吸力”。",
+    "retrieval_metadata": {
+      "method": "hybrid",
+      "docs_count": 3,
+      "elapsed_time": null
+    }
+  },
+  {
+    "idx": 39,
+    "query": "如何判断扫地机器人是否适合木地板？",
+    "reason": "source_not_hit",
+    "expected_source": "D:\\desktop\\langgragh项目\\data\\选购指南.txt",
+    "relevant_ids": [
+      "选购指南.txt"
+    ],
+    "citations": [],
+    "answer_preview": "资料不足",
+    "retrieval_metadata": {
+      "method": "hybrid",
+      "docs_count": 3,
+      "elapsed_time": null
+    }
+  }
+]

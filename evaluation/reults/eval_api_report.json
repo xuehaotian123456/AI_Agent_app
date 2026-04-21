@@ -1,0 +1,27 @@
+{
+  "summary": {
+    "total": 39,
+    "http_200": 39,
+    "http_non_200": 0,
+    "exceptions": 0,
+    "source_hit_count": 30,
+    "source_hit_rate": 0.7692,
+    "insufficient_count": 5,
+    "insufficient_rate": 0.1282,
+    "avg_latency_ms": 17769.57,
+    "p95_latency_ms": 34274.41,
+    "avg_retry_count": 0.487,
+    "corrected_count": 11,
+    "corrected_rate": 0.2821,
+    "model_used_distribution": {
+      "primary": 39
+    },
+    "retrieval_method_distribution": {
+      "hybrid": 39
+    }
+  },
+  "base_url": "http://localhost:8010",
+  "dataset": "data/eval_dataset.json",
+  "generated_at": "2026-04-16 13:00:11",
+  "failure_count": 9
+}

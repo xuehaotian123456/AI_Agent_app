@@ -1,0 +1,53 @@
+{
+  "summary": {
+    "timestamp": "2026-04-16 21:14:32",
+    "dataset_size": 5,
+    "elapsed_time": 178.1837921142578,
+    "averages": {
+      "context_precision": 0.25667564473543314,
+      "context_recall": 0.65
+    }
+  },
+  "detailed_results": [
+    {
+      "question": "LDS和VSLAM导航哪个更适合我家？",
+      "answer": "LDS激光导航精度更高且不受光线影响，VSLAM视觉导航成本更低并能识别更多物体细节。",
+      "scores": {
+        "context_precision": 0.32878625133794537,
+        "context_recall": 0.25
+      }
+    },
+    {
+      "question": "为什么扫地机器人会迷路？",
+      "answer": "扫地机器人迷路的主要原因包括环境光线变化、反光表面干扰或传感器故障导致定位丢失。",
+      "scores": {
+        "context_precision": 0.31041666666149303,
+        "context_recall": 1.0
+      }
+    },
+    {
+      "question": "如何提高扫地机器人的建图精度？",
+      "answer": "为提高扫地机器人的建图精度，应选择配备激光雷达与AI算法的机型，同时保持环境光线稳定，并定期清洁传感器。",
+      "scores": {
+        "context_precision": 0.31041666666149303,
+        "context_recall": 1.0
+      }
+    },
+    {
+      "question": "扫拖一体机的拖地效果怎么样？",
+      "answer": "参考资料中未提供关于扫拖一体机拖地效果的具体信息。",
+      "scores": {
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "question": "如何用APP设置划区清扫？",
+      "answer": "在 APP 地图上框选特定区域，机器人会优先清扫该区域。",
+      "scores": {
+        "context_precision": 0.33375863901623426,
+        "context_recall": 1.0
+      }
+    }
+  ]
+}

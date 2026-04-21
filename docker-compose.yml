@@ -1,0 +1,52 @@
+version: "3.9"
+
+services:
+  rag-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: rag-api
+    ports:
+      - "8010:8010"
+    restart: unless-stopped
+    environment:
+      # 从 .env 文件读取变量
+      - PYTHONUNBUFFERED=1
+      - DASHSCOPE_API_KEY=${DASHSCOPE_API_KEY}
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
+      - REDIS_DB=${REDIS_DB}
+      # - REDIS_PASSWORD=${REDIS_PASSWORD}  # 可选
+
+      # LangFuse 可观测性（可选）
+      # - LANGFUSE_SECRET_KEY=${LANGFUSE_SECRET_KEY}
+      # - LANGFUSE_PUBLIC_KEY=${LANGFUSE_PUBLIC_KEY}
+      # - LANGFUSE_HOST=${LANGFUSE_HOST}
+    volumes:
+      # 持久化向量库
+      - ./rag/chroma_db:/app/rag/chroma_db
+      # 保持知识库可热更新
+      - ./data:/app/data
+      # 本地 reranker 模型（若存在）
+      - ./models:/app/models
+    depends_on:
+      redis:
+        condition: service_healthy
+
+  redis:
+    image: redis:7-alpine
+    container_name: redis-rag
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly yes --maxmemory 512mb --maxmemory-policy allkeys-lru
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  redis-data:

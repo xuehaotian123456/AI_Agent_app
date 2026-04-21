@@ -218,31 +218,70 @@ class VectorStoreService:
                 logger.info(f"[加载知识库] 文件已存在知识库中，跳过：{path}")
 
                 # 🔥 优化：即使跳过加载，也要从向量库恢复文档用于混合检索
-                if self.hybrid_enabled:
-                    try:
-                        temp_collection = Chroma(
-                            collection_name=chroma_conf["collection_name"],
-                            embedding_function=embed_model,
-                            persist_directory=chroma_conf["persist_directory"],
-                        )
+                if check_md5_hex(md5_hex):
+                    logger.info(f"[加载知识库] 文件已存在知识库中，跳过：{path}")
 
-                        # 从向量库中查询该来源的所有文档
-                        results = temp_collection.get(
-                            where={"source": path},
-                            include=["documents", "metadatas"]
-                        )
+                    # 🔥 优化：即使跳过加载，也要从向量库恢复文档用于混合检索
+                    if self.hybrid_enabled:
+                        try:
+                            temp_collection = Chroma(
+                                collection_name=chroma_conf["collection_name"],
+                                embedding_function=embed_model,
+                                persist_directory=chroma_conf["persist_directory"],
+                            )
 
-                        if results['documents']:
-                            for doc_content, metadata in zip(results['documents'], results['metadatas']):
-                                self.all_text_chunks.append(doc_content)
-                                self.all_documents.append(Document(page_content=doc_content, metadata=metadata))
-                            logger.info(f"[混合检索] 从向量库恢复 {len(results['documents'])} 个文档块: {os.path.basename(path)}")
-                        else:
-                            logger.warning(f"[混合检索] 向量库中未找到 {os.path.basename(path)} 的文档")
-                    except Exception as e:
-                        logger.warning(f"[混合检索] 从向量库恢复文档失败: {e}")
+                            # 🔥 修复：使用文件 basename 进行查询（因为metadata中可能存储的是basename）
+                            file_basename = os.path.basename(path)
 
-                continue
+                            # 先尝试用完整路径查询
+                            results = temp_collection.get(
+                                where={"source": path},
+                                include=["documents", "metadatas"]
+                            )
+
+                            # 如果没找到，尝试用basename查询
+                            if not results or not results.get('documents'):
+                                logger.info(f"[混合检索] 完整路径未找到，尝试basename: {file_basename}")
+                                results = temp_collection.get(
+                                    where={"source": file_basename},
+                                    include=["documents", "metadatas"]
+                                )
+
+                            # 如果还是没找到，尝试模糊匹配（包含文件名）
+                            if not results or not results.get('documents'):
+                                logger.info(f"[混合检索] 尝试获取所有文档进行过滤...")
+                                all_results = temp_collection.get(
+                                    include=["documents", "metadatas"]
+                                )
+
+                                if all_results and all_results['documents']:
+                                    filtered_docs = []
+                                    filtered_metadatas = []
+                                    for doc_content, metadata in zip(all_results['documents'],
+                                                                     all_results['metadatas']):
+                                        source = metadata.get('source', '')
+                                        if file_basename in source or path in source:
+                                            filtered_docs.append(doc_content)
+                                            filtered_metadatas.append(metadata)
+
+                                    results = {
+                                        'documents': filtered_docs,
+                                        'metadatas': filtered_metadatas
+                                    }
+
+                            if results and results.get('documents'):
+                                for doc_content, metadata in zip(results['documents'], results['metadatas']):
+                                    self.all_text_chunks.append(doc_content)
+                                    self.all_documents.append(Document(page_content=doc_content, metadata=metadata))
+                                logger.info(
+                                    f"[混合检索] 从向量库恢复 {len(results['documents'])} 个文档块: {file_basename}")
+                            else:
+                                logger.warning(f"[混合检索] 向量库中未找到 {file_basename} 的文档")
+                        except Exception as e:
+                            logger.warning(f"[混合检索] 从向量库恢复文档失败: {e}", exc_info=True)
+
+                    continue
+
             try:
                 documents :list[Document] = get_file_documents(path)
                 if not documents:
@@ -260,6 +299,7 @@ class VectorStoreService:
                     for doc in split_document:
                         self.all_text_chunks.append(doc.page_content)
                         self.all_documents.append(doc)
+                    logger.info(f"[混合检索] 已缓存 {len(split_document)} 个文档块: {os.path.basename(path)}")
 
                 logger.info(f"[加载知识库] 文件已加载：{path}")
             except Exception as e:

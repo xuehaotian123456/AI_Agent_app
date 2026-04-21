@@ -1,0 +1,19 @@
+{
+  "summary": {
+    "timestamp": "2026-04-17 11:15:16",
+    "dataset_size": 1,
+    "elapsed_time": 16.10953974723816,
+    "averages": {
+      "context_precision": 0.0
+    }
+  },
+  "detailed_results": [
+    {
+      "question": "LDS和VSLAM导航哪个更适合我家？",
+      "answer": "LDS激光导航精度更高、不受光线影响；VSLAM视觉导航成本更低、可识别更多物体细节。",
+      "scores": {
+        "context_precision": 0.0
+      }
+    }
+  ]
+}
