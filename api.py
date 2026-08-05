@@ -1,6 +1,9 @@
 """
 FastAPI 封装的智能 RAG Agent 服务
 提供 RESTful API 接口，支持多用户会话隔离、自我纠错、结构化输出
+
+v1: /api/v1/chat — CorrectiveRAG 服务（保持兼容）
+v2: /api/v2/chat — Multi-Agent 四智能体闭环（新增）
 """
 import time
 import uuid
@@ -41,6 +44,7 @@ import os
 
 # ==================== 全局变量 ====================
 rag_service: Optional[CorrectiveRAGService] = None
+multi_agent_orchestrator = None  # v2 Multi-Agent编排器
 session_manager: Optional[RedisSessionManager] = None
 retrieval_cache: Optional[RetrievalCache] = None
 _LANGFUSE_ENABLED = initialize_langfuse()
@@ -50,7 +54,7 @@ _LANGFUSE_ENABLED = initialize_langfuse()
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """应用启动和关闭时的资源管理"""
-    global rag_service, session_manager, retrieval_cache
+    global rag_service, session_manager, retrieval_cache, multi_agent_orchestrator
     logger.info("[API] 正在初始化 RAG 服务...")
     start_time = time.time()
 
@@ -102,6 +106,37 @@ async def lifespan(app: FastAPI):
 
         elapsed = time.time() - start_time
         logger.info(f"[API] Corrective RAG Service 初始化成功，耗时: {elapsed:.2f}s")
+
+        # 步骤 7：初始化 Multi-Agent 编排器（v2）
+        try:
+            from agent.multi_agent_orchestrator import MultiAgentOrchestrator
+            from services.FlywheelService import get_flywheel
+            from rag.knowledge_graph import KnowledgeGraph
+
+            flywheel = get_flywheel(redis_client=redis_client)
+
+            # 初始化KG（尝试加载已有索引）
+            kg = KnowledgeGraph()
+            if base_rag_service.vector_store and base_rag_service.vector_store.all_text_chunks:
+                kg.load_or_build(base_rag_service.vector_store.all_text_chunks)
+                logger.info(f"[API] KG索引已初始化: {kg.entity_count} entities")
+            else:
+                logger.info("[API] KG索引跳过（无可用文本块）")
+
+            multi_agent_orchestrator = MultiAgentOrchestrator(
+                rag_service=base_rag_service,
+                session_manager=session_manager,
+                retrieval_cache=retrieval_cache,
+                flywheel=flywheel,
+                knowledge_graph=kg,
+            )
+            logger.info("[API] Multi-Agent 编排器(v2)初始化成功")
+        except Exception as e:
+            logger.warning(f"[API] Multi-Agent v2初始化失败（v1仍可用）: {e}")
+            multi_agent_orchestrator = None
+
+        elapsed = time.time() - start_time
+        logger.info(f"[API] 全部服务初始化完成，总耗时: {elapsed:.2f}s")
     except Exception as e:
         logger.error(f"[API] RAG 服务初始化失败: {e}", exc_info=True)
         raise
@@ -193,7 +228,185 @@ class ErrorResponse(BaseModel):
     details: Optional[str] = None
 
 
-# ==================== API 路由 ====================
+# ==================== V2 API: Multi-Agent 四智能体闭环 ====================
+
+class MultiAgentChatRequest(BaseModel):
+    """v2 Multi-Agent 聊天请求"""
+    query: str = Field(..., min_length=1, max_length=2000, description="用户查询内容")
+    user_id: str = Field(default="default_user", description="用户ID")
+    session_id: Optional[str] = Field(default=None, description="会话ID")
+    use_history: bool = Field(default=True, description="是否使用历史对话")
+    enable_correction: bool = Field(default=True, description="是否启用反思纠错")
+
+
+@app.post("/api/v2/chat", tags=["Multi-Agent v2"])
+@observe_if_available(name="api.v2.chat")
+async def multi_agent_chat(request: MultiAgentChatRequest):
+    """
+    Multi-Agent 智能问答（四智能体闭环）
+
+    - Planner: 意图分析 + 任务拆解 + 工具选择
+    - Retriever: 工具调用编排 + 三路多路召回
+    - Reflector: 置信度自检 + 失败重检索决策
+    - Summarizer: 证据链综合 + 结构化输出
+
+    返回完整决策轨迹（Plan/Reflection/检索轮次/工具调用/飞轮指标）
+    """
+    request_id = str(uuid.uuid4())[:8]
+    start_time = time.time()
+
+    if multi_agent_orchestrator is None:
+        raise HTTPException(status_code=503, detail="Multi-Agent v2 服务未就绪（v1仍可用）")
+
+    logger.info(f"[API-v2-{request_id}] 收到请求: user={request.user_id}, query={request.query[:50]}...")
+
+    try:
+        session_id = request.session_id or f"{request.user_id}_v2_{uuid.uuid4().hex[:8]}"
+
+        # 获取历史消息
+        messages = []
+        if request.use_history and session_manager:
+            try:
+                history = await session_manager.get_history(session_id)
+                messages = [{"role": m["role"], "content": m["content"]} for m in history]
+                await session_manager.add_message(session_id, "user", request.query)
+            except Exception as e:
+                logger.warning(f"[API-v2-{request_id}] 历史获取失败: {e}")
+
+        # 执行 Multi-Agent 流程
+        response = multi_agent_orchestrator.chat(
+            query=request.query,
+            session_id=session_id,
+            user_id=request.user_id,
+            messages=messages,
+            enable_correction=request.enable_correction,
+        )
+        response.request_id = request_id
+        response.session_id = session_id
+
+        # 保存助手回复
+        if session_manager:
+            try:
+                await session_manager.add_message(session_id, "assistant", response.answer)
+            except Exception:
+                pass
+
+        logger.info(
+            f"[API-v2-{request_id}] 完成: "
+            f"time={response.response_time_ms}ms, "
+            f"intent={response.plan.get('intent', '?') if response.plan else '?'}, "
+            f"retries={response.retry_count}, "
+            f"confidence={response.confidence}"
+        )
+
+        return response
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"[API-v2-{request_id}] 处理失败: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=f"内部服务器错误: {str(e)}")
+
+
+@app.post("/api/v2/chat/stream", tags=["Multi-Agent v2"])
+async def multi_agent_chat_stream(request: MultiAgentChatRequest):
+    """
+    Multi-Agent 流式问答（SSE）
+
+    返回每个Agent的执行阶段和最终答案的token流
+    """
+    if multi_agent_orchestrator is None:
+        raise HTTPException(status_code=503, detail="Multi-Agent v2 服务未就绪")
+
+    session_id = request.session_id or f"{request.user_id}_v2_stream_{uuid.uuid4().hex[:8]}"
+    messages = []
+
+    if request.use_history and session_manager:
+        try:
+            history = await session_manager.get_history(session_id)
+            messages = [{"role": m["role"], "content": m["content"]} for m in history]
+        except Exception:
+            pass
+
+    return StreamingResponse(
+        multi_agent_orchestrator.chat_stream(
+            query=request.query,
+            session_id=session_id,
+            user_id=request.user_id,
+            messages=messages,
+        ),
+        media_type="text/event-stream",
+        headers={"Cache-Control": "no-cache", "Connection": "keep-alive"},
+    )
+
+
+@app.get("/api/v2/flywheel/metrics", tags=["Multi-Agent v2"])
+async def get_flywheel_metrics(days: int = 7):
+    """
+    获取飞轮聚合指标
+
+    - 失败率、平均置信度、重试分布
+    - 高频失败查询族
+    - 当前策略自适应状态
+    """
+    try:
+        from services.FlywheelService import get_flywheel
+        fw = get_flywheel()
+        return fw.get_metrics(days=days)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/v2/flywheel/failures", tags=["Multi-Agent v2"])
+async def get_flywheel_failures(limit: int = 50):
+    """
+    获取最近的飞轮失败事件
+    """
+    try:
+        from services.FlywheelService import get_flywheel
+        fw = get_flywheel()
+        failures = fw.get_recent_failures(limit=limit)
+        return {"count": len(failures), "failures": failures}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/v2/tools/stats", tags=["Multi-Agent v2"])
+async def get_tool_statistics():
+    """
+    获取工具调用统计
+
+    - 各工具调用次数、成功率、平均耗时
+    - 最近调用记录
+    """
+    try:
+        from agent.tools.tool_registry import tool_registry
+        return {
+            "statistics": tool_registry.get_statistics(),
+            "recent_calls": tool_registry.get_recent_calls(limit=10),
+            "registered_tools": tool_registry.list_all(),
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/v2/kg/entities", tags=["Multi-Agent v2"])
+async def search_kg_entities(keyword: str = "", limit: int = 20):
+    """
+    搜索知识图谱实体（调试用）
+    """
+    try:
+        from rag.knowledge_graph import get_knowledge_graph
+        kg = get_knowledge_graph()
+        if not kg.is_built:
+            return {"status": "not_built", "entities": []}
+        entities = kg.search_entities(keyword, limit=limit) if keyword else []
+        return {"status": "ok", "entity_count": kg.entity_count, "entities": entities}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# ==================== V1: 原有端点（保持不变） ====================
 
 @app.post("/api/v1/chat", response_model=QueryResponse, tags=["聊天"])
 @observe_if_available(name="api.chat")

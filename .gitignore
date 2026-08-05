@@ -36,12 +36,17 @@ models/
 
 # 本地测试文件
 test_*.py
+!tests/test_multi_agent.py
 *测试*.py
 
 # 本地文档（根据需求保留/删除）
 *.md
-*.txt
 !README.md
+*.txt
+!requirements.txt
+!prompts/*.txt
+!检索对比结果.txt
+!md5.txt
 
 # 环境配置
 .env

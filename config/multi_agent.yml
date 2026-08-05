@@ -1,0 +1,25 @@
+# Multi-Agent 知识问答系统配置
+planner:
+  max_subtasks: 3                 # 复杂问题最多拆解数
+  use_tools: true                 # 允许规划阶段调用工具
+
+retriever:
+  top_k_retrieve: 10              # 初步检索数量
+  top_k_rerank: 3                 # 重排序后保留数量
+  alpha: 0.5                      # BM25权重 (0-1)，向量权重为 1-alpha
+  kg_enabled: true                # 知识图谱扩散召回
+  kg_max_entities: 3              # KG扩展最大实体数
+  kg_max_hops: 1                  # KG一跳扩散
+
+reflection:
+  max_retries: 2                  # 最大重试次数
+  confidence_threshold: 0.6       # 置信度阈值
+
+summarizer:
+  max_citations: 5                # 最大引用数量
+
+flywheel:
+  enabled: true
+  redis_key_prefix: "flywheel:"   # Redis Key前缀
+  jsonl_path: "logs/flywheel_failures.jsonl"
+  adapt_threshold: 3              # 同类型失败>=3次触发策略自适应

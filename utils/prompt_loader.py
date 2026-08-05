@@ -82,6 +82,37 @@ def load_report_prompts():
         logger.error(f"[load_rag_prompts] 读取report_prompt_path提示语失败：{e}")
         raise e
 
+def load_planner_prompt():
+    """加载 Planner Agent 提示词"""
+    try:
+        path = get_abs_path("prompts/planner.txt")
+        with open(path, "r", encoding="utf-8") as f:
+            return f.read()
+    except FileNotFoundError:
+        logger.warning("[load_planner_prompt] 提示词文件不存在")
+        return load_prompt_from_file(get_abs_path("prompts/planner.txt"))
+
+def load_reflector_prompt():
+    """加载 Reflector Agent 提示词"""
+    try:
+        path = get_abs_path("prompts/reflector.txt")
+        with open(path, "r", encoding="utf-8") as f:
+            return f.read()
+    except FileNotFoundError:
+        logger.warning("[load_reflector_prompt] 提示词文件不存在")
+        return load_prompt_from_file(get_abs_path("prompts/reflector.txt"))
+
+def load_summarizer_prompt():
+    """加载 Summarizer Agent 提示词"""
+    try:
+        path = get_abs_path("prompts/summarizer.txt")
+        with open(path, "r", encoding="utf-8") as f:
+            return f.read()
+    except FileNotFoundError:
+        logger.warning("[load_summarizer_prompt] 提示词文件不存在")
+        return load_prompt_from_file(get_abs_path("prompts/summarizer.txt"))
+
+
 if __name__ == '__main__':
     print(load_system_prompts())
     print(load_rag_prompts())
